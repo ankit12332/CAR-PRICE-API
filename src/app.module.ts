@@ -9,13 +9,23 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    // TypeOrmModule.forRoot({
+    //   type: 'postgres',
+    //   host: 'localhost',
+    //   port: 5432,
+    //   username: 'postgres',
+    //   password: '9658',
+    //   database: 'CAR-PRICE-API',
+    //   entities: [User, Report],
+    //   synchronize: true,
+    // }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'manny.db.elephantsql.com',
       port: 5432,
-      username: 'postgres',
-      password: '9658',
-      database: 'CAR-PRICE-API',
+      username: 'mdctybfi',
+      password: '7A6VGLjsa_oJsz4e-EPQLNS28koerC2o',
+      database: 'mdctybfi',
       entities: [User, Report],
       synchronize: true,
     }),
