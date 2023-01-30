@@ -3,8 +3,8 @@ Post http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "steloxx.ankit010.sa@gmail.com",
-    "password": "Steloxx1122"
+    "email": "steloxx.ankit010.new@gmail.com",
+    "password": "Lool1122new"
 }
 
 ### Find a User by giving ID
@@ -20,7 +20,7 @@ Get http://localhost:3000/auth
 Delete http://localhost:3000/auth/2
 
 ### Update User email
-Patch http://localhost:3000/auth/3
+Patch http://localhost:3000/auth/1
 Content-Type: application/json
 
 {
