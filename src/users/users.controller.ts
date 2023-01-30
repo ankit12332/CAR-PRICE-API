@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpadateUserDto } from './dtos/update-user.dto';
 import { UsersService } from './users.service';
@@ -13,6 +13,7 @@ export class UsersController {
         this.usersService.create(body.email, body.password);
     }
 
+    @UseInterceptors(ClassSerializerInterceptor) //It's used to hide the password which we defined in user.entity.ts
     @Get('/:id')
     findUser(@Param('id') id: string){
         return this.usersService.findOne(parseInt(id));
