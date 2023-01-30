@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    //////////////////////Localhost///////////////////////////////
     // TypeOrmModule.forRoot({
     //   type: 'postgres',
     //   host: 'localhost',
@@ -19,13 +20,27 @@ import { UsersModule } from './users/users.module';
     //   entities: [User, Report],
     //   synchronize: true,
     // }),
+
+    //////////////////////Elephant-SQL///////////////////////////////
+    // TypeOrmModule.forRoot({
+    //   type: 'postgres',
+    //   host: 'manny.db.elephantsql.com',
+    //   port: 5432,
+    //   username: 'mdctybfi',
+    //   password: '7A6VGLjsa_oJsz4e-EPQLNS28koerC2o',
+    //   database: 'mdctybfi',
+    //   entities: [User, Report],
+    //   synchronize: true,
+    // }),
+
+    //////////////////////AWS-Postgress-Database Connection///////////////////////////////
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'manny.db.elephantsql.com',
+      host: 'postgress-instance.culd1172xzea.ap-south-1.rds.amazonaws.com',
       port: 5432,
-      username: 'mdctybfi',
-      password: '7A6VGLjsa_oJsz4e-EPQLNS28koerC2o',
-      database: 'mdctybfi',
+      username: 'ankitpanda',
+      password: '9658523363',
+      database: 'CARPRICEAPI',
       entities: [User, Report],
       synchronize: true,
     }),
