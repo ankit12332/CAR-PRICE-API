@@ -1,9 +1,12 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpadateUserDto } from './dtos/update-user.dto';
+import { UserDto } from './dtos/user.dto';
 import { UsersService } from './users.service';
 
 @Controller('auth')
+//@Serialize(UserDto)
 export class UsersController {
     constructor(private usersService: UsersService){}
 
@@ -13,12 +16,14 @@ export class UsersController {
         this.usersService.create(body.email, body.password);
     }
 
-    @UseInterceptors(ClassSerializerInterceptor) //It's used to hide the password which we defined in user.entity.ts
+    //@UseInterceptors(new SerializeInterceptor(UserDto)) //It's used to hide the password which we defined in user.entity.ts
+    @Serialize(UserDto) //It's also used to hide the password which we defined in user.entity.ts.  If you want to use this role for every req then you have to configure it below controller. see the commented code above
     @Get('/:id')
     findUser(@Param('id') id: string){
         return this.usersService.findOne(parseInt(id));
     }
 
+    
     @Get()
     findUsers(@Query('email') email:string){
         return this.usersService.find(email);

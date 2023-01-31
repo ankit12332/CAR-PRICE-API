@@ -1,4 +1,4 @@
-import { Exclude } from "class-transformer";
+//import { Exclude } from "class-transformer";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -10,6 +10,6 @@ export class User{
     email: string;
 
     @Column()
-    @Exclude() //This is used to hide the password
+    //@Exclude() //This is used to hide the password
     password: string;
 }
