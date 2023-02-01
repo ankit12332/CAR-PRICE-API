@@ -3,6 +3,7 @@ https://docs.nestjs.com/providers#services
 */
 
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common/exceptions';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { UsersService } from 'src/users/users.service';
 import { promisify } from 'util';
@@ -36,7 +37,22 @@ export class AuthService {
         return user;
     }
 
-    signin(){
+    async signin(email:string, password:string){
+        const [user] = await this.usersService.find(email);
+        if(!user){
+            throw new NotFoundException('User not found')
+        }
 
+        //Destructuring
+        const [salt, storedHash] = user.password.split('.');
+        //console.log('salt is ' + salt);
+        //console.log('storedHash is ' + storedHash);
+
+        const hash = (await scrypt(password, salt, 32)) as Buffer;
+         if(storedHash !== hash.toString('hex')){
+            throw new BadRequestException('Password not matched')
+         }
+         //console.log('hash is '+ hash.toString('hex') )
+        return user;
     }
 }

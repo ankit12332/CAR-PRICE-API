@@ -18,6 +18,11 @@ export class UsersController {
         return this.authService.signup(body.email, body.password);
     }
 
+    @Post('/signin')
+    signin(@Body() body: CreateUserDto){
+        return this.authService.signin(body.email, body.password);
+    }
+
     //@UseInterceptors(new SerializeInterceptor(UserDto)) //It's used to hide the password which we defined in user.entity.ts
     @Serialize(UserDto) //It's also used to hide the password which we defined in user.entity.ts.  If you want to use this role for every req then you have to configure it below controller. see the commented code above
     @Get('/:id')
