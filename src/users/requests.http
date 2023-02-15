@@ -3,8 +3,8 @@ Post http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "steloxx.ankit010.new4@gmail.com",
-    "password": "Lool1122new4"
+    "email": "test@test1.com",
+    "password": "12345"
 }
 
 ### Signin a new User
@@ -12,12 +12,18 @@ Post http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "steloxx.ankit010.new4@gmail.com",
-    "password": "Lool1122new4"
+    "email": "test@test1.com",
+    "password": "12345"
 }
 
+### Get the current signed in user
+Get http://localhost:3000/auth/whoami
+
+### Signed out the current user
+Post http://localhost:3000/auth/signout
+
 ### Find a User by giving ID
-Get http://localhost:3000/auth/33
+Get http://localhost:3000/auth/52
 
 ### Find all users data by writing email
 Get http://localhost:3000/auth?email=ankit.panda010.ap@gmail.com
@@ -26,7 +32,7 @@ Get http://localhost:3000/auth?email=ankit.panda010.ap@gmail.com
 Get http://localhost:3000/auth
 
 ### Delete User
-Delete http://localhost:3000/auth/2
+Delete http://localhost:3000/auth/38
 
 ### Update User email
 Patch http://localhost:3000/auth/1

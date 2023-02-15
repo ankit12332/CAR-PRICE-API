@@ -1,26 +1,58 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Session, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { CurrentUser } from './decorators/current-user.decorator';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpadateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
+import { User } from './user.entity';
 import { UsersService } from './users.service';
 
 @Controller('auth')
 //@Serialize(UserDto)
+// @UseInterceptors(CurrentUserInterceptor)  we can't add interceptor in every controller so i used it in global controller which is in "users.module.ts"
 export class UsersController {
     constructor(private usersService: UsersService, private authService: AuthService){}
 
-    @Post('/signup')
-    createUser(@Body() body: CreateUserDto){
-        console.log(body); //For testing whether the create req is working on not in console
-        //this.usersService.create(body.email, body.password);
-        return this.authService.signup(body.email, body.password);
+    // @Get('/whoami')
+    // whoAmI(@Session() session:any){
+    //     return this.usersService.findOne(session.userId);
+    // }
+
+    @Get('/whoami')
+    whoAmI(@CurrentUser() user:User){
+        return user;
     }
 
+    @Post('/signout')
+    signOutUser(@Session() session:any){
+        session.userId = null;
+    }
+
+    @Post('/signup')
+    async createUser(@Body() body: CreateUserDto, @Session() session: any){
+        //console.log(body); //For testing whether the create req is working on not in console
+        //this.usersService.create(body.email, body.password);
+        const user = await this.authService.signup(body.email, body.password);
+        //For setting cookies
+        session.userId = user.id;
+        return user;
+    }
+    // @Post('/signup')
+    // createUser(@Body() body: CreateUserDto){
+    //     console.log(body); //For testing whether the create req is working on not in console
+    //     //this.usersService.create(body.email, body.password);
+    //     const user = new User();
+    //     user.email = body.email;
+    //     user.password = body.password;
+    //     return this.authService.signup(user);
+    // }
+
     @Post('/signin')
-    signin(@Body() body: CreateUserDto){
-        return this.authService.signin(body.email, body.password);
+    async signin(@Body() body: CreateUserDto, @Session() session: any){
+        const user = await this.authService.signin(body.email, body.password);
+        session.userId = user.id;
+        return user;
     }
 
     //@UseInterceptors(new SerializeInterceptor(UserDto)) //It's used to hide the password which we defined in user.entity.ts

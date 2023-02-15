@@ -1,7 +1,3 @@
-/*
-https://docs.nestjs.com/providers#services
-*/
-
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
@@ -36,6 +32,29 @@ export class AuthService {
         //Return the user
         return user;
     }
+
+    // async signup(user: User): Promise<User>{
+    //     //see if email is already in use
+    //     const users = await this.usersService.find(user.email);
+    //     if(users.length){
+    //         throw new BadRequestException('Email already in use')
+    //     }
+    //     //Hash the users password
+    //     //Generate salt
+    //     const salt = randomBytes(8).toString('hex');
+
+    //     //Hash the salt and the password together
+    //     const hash = (await scrypt(user.password, salt, 32)) as Buffer;
+
+    //     //Join the hashed result and the salt together
+    //     const result = salt + '.' + hash.toString('hex');
+
+    //     //Create a new user and save it
+    //     const newUser = await this.usersService.create({ ...user, password: result });
+
+    //     //Return the user
+    //     return newUser;
+    // }
 
     async signin(email:string, password:string){
         const [user] = await this.usersService.find(email);
