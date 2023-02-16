@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config/dist';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -34,16 +36,27 @@ import { UsersModule } from './users/users.module';
     // }),
 
     //////////////////////AWS-Postgress-Database Connection///////////////////////////////
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'postgress-instance.culd1172xzea.ap-south-1.rds.amazonaws.com',
-      port: 5432,
-      username: 'ankitpanda',
-      password: '9658523363',
-      database: 'CARPRICEAPI',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT, 10),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       entities: [User, Report],
       synchronize: true,
     }),
+    // TypeOrmModule.forRoot({
+    //   type: 'postgres',
+    //   host: 'postgress-instance.culd1172xzea.ap-south-1.rds.amazonaws.com',
+    //   port: 5432,
+    //   username: 'ankitpanda',
+    //   password: '9658523363',
+    //   database: 'CARPRICEAPI',
+    //   entities: [User, Report],
+    //   synchronize: true,
+    // }),
     UsersModule,
     ReportsModule,
   ],
