@@ -1,0 +1,13 @@
+### Create a new Report
+Post http://localhost:3000/reports
+Content-Type: application/json
+
+{
+    "make": "Audi",
+    "model": "A7",
+    "year": 1999,
+    "milage": 25000,
+    "lng": 0,
+    "lat": 0,
+    "price": 2000000
+}
