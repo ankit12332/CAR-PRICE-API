@@ -11,3 +11,6 @@ Content-Type: application/json
     "lat": 0,
     "price": 2000000
 }
+
+### Get all reports
+Get http://localhost:3000/reports

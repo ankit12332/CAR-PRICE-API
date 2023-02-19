@@ -11,7 +11,7 @@ export class ReportsService {
     @InjectRepository(Report) private repo: Repository<Report>,
   ) {}
 
-  create(reportDto: CreateReportDto, user: User): Promise<Report> {
+  createReport(reportDto: CreateReportDto, user: User): Promise<Report> {
     const report = this.repo.create({
       ...reportDto,
       user,
