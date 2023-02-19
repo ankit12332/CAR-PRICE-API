@@ -21,4 +21,8 @@ export class ReportsService {
     // report.user = user;
     // return this.repo.save(report);
   }
+
+  getAllReports(){
+    return this.repo.find();
+  }
 }
