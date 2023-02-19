@@ -21,7 +21,7 @@ export class UsersService {
         if (!id) {
           return null;
         }
-        return this.repo.find({where:{id}});
+        return this.repo.findOne({where:{id}});
       }
 
     async find(email:string){

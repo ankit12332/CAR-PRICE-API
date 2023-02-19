@@ -14,11 +14,8 @@ export class User{
     //@Exclude() //This is used to hide the password
     password: string;
 
-    @OneToMany(()=> Report, report => report.user)
+    @OneToMany(()=> Report, report => report.user, {
+        cascade: true,
+    })
     reports: Report[];
-
-    @AfterInsert()
-    logInsert(){
-        console.log('Inserted User Id is ' + this.id)
-    }
 }

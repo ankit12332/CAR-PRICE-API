@@ -8,14 +8,17 @@ import { Report } from './report.entity';
 @Injectable()
 export class ReportsService {
   constructor(
-    @InjectRepository(Report) private reportRepository: Repository<Report>,
+    @InjectRepository(Report) private repo: Repository<Report>,
   ) {}
 
   create(reportDto: CreateReportDto, user: User): Promise<Report> {
-    const report = this.reportRepository.create({
+    const report = this.repo.create({
       ...reportDto,
       user,
     });
-    return this.reportRepository.save(report);
+    return this.repo.save(report);
+    // const report = this.repo.create(reportDto);
+    // report.user = user;
+    // return this.repo.save(report);
   }
 }
