@@ -25,7 +25,7 @@ export class UsersService {
       }
 
     async find(email:string){
-        return await this.repo.find({where:{email}}); 
+        return await this.repo.find({where:{email}});
     }
 
     async update(id: number, attrs: Partial<User>){  //attrs means attributes, Partial means an object that can have any subset of properties of the 'User'

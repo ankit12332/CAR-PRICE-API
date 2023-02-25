@@ -14,7 +14,10 @@ export class User{
     //@Exclude() //This is used to hide the password
     password: string;
 
-    @OneToMany(()=> Report, report => report.user, {
+    @Column({default:true})
+    isAdmin: boolean;
+
+    @OneToMany(()=> Report, (report) => report.user, {
         cascade: true,
     })
     reports: Report[];
