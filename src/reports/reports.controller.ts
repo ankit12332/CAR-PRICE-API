@@ -27,4 +27,10 @@ export class ReportsController {
     approvedReport(@Param('id') id:number, @Body() body:ApprovedReportDto){
         return this.reportsService.changeApproval(id, body.approved);
     }
+
+    @Get()
+    @UseGuards(AuthGuard)
+    getAllReport(){
+        return this.reportsService.getAllReports();
+    }
 }

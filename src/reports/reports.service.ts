@@ -30,4 +30,14 @@ export class ReportsService {
     report.approved = approved;
     return this.repo.save(report);
 }
+
+  // getAllReports(){
+  //   return this.repo.find();
+  // }
+
+  getAllReports(){
+    return this.repo.createQueryBuilder()
+      .select('*')
+      .getRawMany();
+  }
 }
