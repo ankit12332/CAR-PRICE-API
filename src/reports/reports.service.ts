@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/user.entity';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { CreateReportDto } from './dtos/create-report.dto';
+import { GetEstimateDto } from './dtos/get-estimate.dto';
 import { Report } from './report.entity';
 
 @Injectable()
@@ -40,4 +41,23 @@ export class ReportsService {
       .select('*')
       .getRawMany();
   }
+
+  createEstimate({ make, model, lng, lat, year, milage }: GetEstimateDto) {
+    return this.repo
+      .createQueryBuilder()
+      .select('AVG(price)', 'price')
+      // .addSelect('milage')
+      .where('make = :make', { make })
+      .andWhere('model = :model', { model })
+      .andWhere('lng - :lng BETWEEN -5 AND 5', { lng })
+      .andWhere('lat - :lat BETWEEN -5 AND 5', { lat })
+      .andWhere('year - :year BETWEEN -3 AND 3', { year })
+      // .andWhere('approved IS TRUE')
+      // .groupBy('milage')
+      .orderBy('ABS(milage - :milage)', 'DESC')
+      .setParameters({ milage })
+      .limit(3)
+      .getRawMany();
+  }
+  
 }

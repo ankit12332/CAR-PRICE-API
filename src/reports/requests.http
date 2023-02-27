@@ -3,13 +3,13 @@ Post http://localhost:3000/reports
 Content-Type: application/json
 
 {
-    "make": "Audi",
-    "model": "A7",
-    "year": 1999,
-    "milage": 25000,
-    "lng": 0,
-    "lat": 0,
-    "price": 2000000
+    "make": "Ford",
+    "model": "Mustang",
+    "year": 1982,
+    "milage": 50000,
+    "lng": 45,
+    "lat": 45,
+    "price": 20000
 }
 
 ### Create a new Report
@@ -22,3 +22,6 @@ Content-Type: application/json
 
 ### Get all reports
 Get http://localhost:3000/reports
+
+### Get an estimate for existing vechiles
+Get http://localhost:3000/reports/getEstimate?make=Ford&model=Mustang&lng=45&lat=45&milage=20000&year=1981
