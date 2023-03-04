@@ -1,3 +1,4 @@
+import { FilesModule } from './upload/files.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -7,6 +8,7 @@ import { Report } from './reports/report.entity';
 import { ReportsModule } from './reports/reports.module';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
+import { File } from './upload/file.entity';
 
 @Module({
   imports: [
@@ -43,7 +45,7 @@ import { UsersModule } from './users/users.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User, Report],
+      entities: [User, Report, File],
       synchronize: true,
     }),
     // TypeOrmModule.forRoot({
@@ -58,6 +60,7 @@ import { UsersModule } from './users/users.module';
     // }),
     UsersModule,
     ReportsModule,
+    FilesModule, 
   ],
   controllers: [AppController],
   providers: [AppService],
