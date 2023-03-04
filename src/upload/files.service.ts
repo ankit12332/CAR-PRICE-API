@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateFileDto } from './dtos/createFile.dto';
@@ -16,5 +16,28 @@ async create(createFileDto: CreateFileDto): Promise<File> {
     file.data = createFileDto.data;
 
     return this.repo.save(file);
+  }
+
+  async findAll(): Promise<CreateFileDto[]> {
+    const files = await this.repo
+      .createQueryBuilder()
+      .select(['filename', 'mimetype', 'size'])
+      .addSelect('encode(data, \'base64\')', 'data')
+      .execute();
+
+    return files.map((file) => ({
+      filename: file.filename,
+      mimetype: file.mimetype,
+      size: file.size,
+      data: file.data,
+    }));
+  }
+
+  async getFileById(id: number): Promise<File> {
+    const file = await this.repo.findOne({where:{id}});
+    if (!file) {
+      throw new NotFoundException(`File with ID ${id} not found`);
+    }
+    return file;
   }
 }
