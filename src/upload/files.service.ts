@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateFileDto } from './dtos/createFile.dto';
+import { ViewFileDto } from './dtos/viewFile.dto';
 import { File } from './file.entity';
 
 @Injectable()
@@ -18,14 +19,15 @@ async create(createFileDto: CreateFileDto): Promise<File> {
     return this.repo.save(file);
   }
 
-  async findAll(): Promise<CreateFileDto[]> {
+  async findAll(): Promise<ViewFileDto[]> {
     const files = await this.repo
       .createQueryBuilder()
-      .select(['filename', 'mimetype', 'size'])
+      .select(['id','filename', 'mimetype', 'size'])
       .addSelect('encode(data, \'base64\')', 'data')
       .execute();
 
     return files.map((file) => ({
+      id: file.id,
       filename: file.filename,
       mimetype: file.mimetype,
       size: file.size,

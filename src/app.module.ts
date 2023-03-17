@@ -1,3 +1,4 @@
+import { OcrResultModule } from './ocrResult/ocr-result.module';
 import { FilesModule } from './upload/files.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -9,6 +10,7 @@ import { ReportsModule } from './reports/reports.module';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { File } from './upload/file.entity';
+import { OCRResult } from './ocrResult/ocr-result.entity';
 
 @Module({
   imports: [
@@ -45,7 +47,7 @@ import { File } from './upload/file.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User, Report, File],
+      entities: [User, Report, File, OCRResult],
       synchronize: true,
     }),
     // TypeOrmModule.forRoot({
@@ -60,7 +62,8 @@ import { File } from './upload/file.entity';
     // }),
     UsersModule,
     ReportsModule,
-    FilesModule, 
+    FilesModule,
+    OcrResultModule,
   ],
   controllers: [AppController],
   providers: [AppService],
