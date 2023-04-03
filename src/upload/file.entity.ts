@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { OCRResult } from 'src/ocrResult/ocr-result.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class File {
@@ -16,4 +17,7 @@ export class File {
 
   @Column('bytea')
   data: Buffer;
+
+  @OneToMany(() => OCRResult, result => result.file)
+  ocrResults: OCRResult[];
 }

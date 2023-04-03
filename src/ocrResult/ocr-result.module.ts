@@ -5,7 +5,8 @@ import { OCRResult } from './ocr-result.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([OCRResult])],
+    imports: [
+        TypeOrmModule.forFeature([OCRResult])],
     controllers: [
         OcrResultController, ],
     providers: [

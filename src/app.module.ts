@@ -1,3 +1,4 @@
+import { Reports_uploadModule } from './customs/GET/reports_upload.module';
 import { OcrResultModule } from './ocrResult/ocr-result.module';
 import { FilesModule } from './upload/files.module';
 import { Module } from '@nestjs/common';
@@ -64,8 +65,9 @@ import { OCRResult } from './ocrResult/ocr-result.entity';
     ReportsModule,
     FilesModule,
     OcrResultModule,
+    Reports_uploadModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [ AppController ],
+  providers: [ AppService ],
 })
 export class AppModule {}

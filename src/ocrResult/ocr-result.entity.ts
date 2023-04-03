@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { File } from '../upload/file.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity()
 export class OCRResult {
@@ -7,4 +8,7 @@ export class OCRResult {
 
   @Column({ type: 'text' })
   text: string;
+
+  @ManyToOne(() => File, (file) => file.ocrResults)
+  file: File;
 }
