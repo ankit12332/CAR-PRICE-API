@@ -1,3 +1,5 @@
+import { MarkModule } from './student and mark/mark/mark.module';
+import { StudentModule } from './student and mark/student/student.module';
 import { Reports_uploadModule } from './customs/GET/reports_upload.module';
 import { OcrResultModule } from './ocrResult/ocr-result.module';
 import { FilesModule } from './upload/files.module';
@@ -12,6 +14,8 @@ import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { File } from './upload/file.entity';
 import { OCRResult } from './ocrResult/ocr-result.entity';
+import { Student } from './student and mark/student/student.entity';
+import { Mark } from './student and mark/mark/mark.entity';
 
 @Module({
   imports: [
@@ -48,7 +52,7 @@ import { OCRResult } from './ocrResult/ocr-result.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User, Report, File, OCRResult],
+      entities: [User, Report, File, OCRResult, Student, Mark],
       synchronize: true,
     }),
     // TypeOrmModule.forRoot({
@@ -65,7 +69,9 @@ import { OCRResult } from './ocrResult/ocr-result.entity';
     ReportsModule,
     FilesModule,
     OcrResultModule,
-    Reports_uploadModule
+    Reports_uploadModule,
+    MarkModule, 
+    StudentModule, 
   ],
   controllers: [ AppController ],
   providers: [ AppService ],
